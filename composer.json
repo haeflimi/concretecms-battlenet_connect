@@ -1,5 +1,5 @@
 {
-    "name": "haeflimi/concretecms-battlenet_connect",
+    "name": "haeflimi/battlenet_connect",
     "type": "concrete5-package",
     "require": {
         "php": ">=8",
