@@ -1,68 +1,60 @@
-<?php defined('C5_EXECUTE') or die('Access denied.'); ?>
+<?php
 
-<div class='form-group'>
-    <?php echo $form->label('client_id', t('Battle.net Client Id'))?>
-    <?php echo $form->text('client_id', $client_id)?>
-</div>
-<div class='form-group'>
-    <?php echo $form->label('client_id', t('Battle.net Client Secret'))?>
-    <?php echo $form->text('client_secret', $client_secret)?>
-</div>
-<div class='form-group'>
-    <div class="input-group">
-        <label type="checkbox">
-            <input type="checkbox" name="registration_enabled" value="1" <?php echo \Config::get('auth.battlenet.registration.enabled', false) ? 'checked' : '' ?>>
-            <span style="font-weight:normal"><?php echo t('Allow automatic registration') ?></span>
-        </label>
-        </span>
-    </div>
-</div>
-<div class='form-group registration-group'>
-    <label for="registration_group" class="control-label"><?php echo t('Group to enter on registration') ?></label>
-    <select name="registration_group" class="form-control">
-        <option value="0"><?php echo t("None") ?></option>
-        <?php
-        /** @var \Group $group */
-        foreach ($groups as $group) {
-            ?>
-            <option value="<?php echo $group->getGroupID() ?>" <?php echo intval($group->getGroupID(), 10) === intval(
-                \Config::get('auth.battlenet.registration.group', false),
-                10) ? 'selected' : '' ?>>
-                <?php echo $group->getGroupDisplayName(false) ?>
-            </option>
-        <?php
+defined('C5_EXECUTE') or die('Access Denied.');
 
-        }
-        ?>
-    </select>
-</div>
+/**
+ * @var Concrete\Core\Form\Service\Widget\GroupSelector $groupSelector
+ * @var Concrete\Core\Form\Service\Form $form
+ * @var string $callbackUrl
+ * @var string $clientId
+ * @var string $clientSecret
+ * @var string $region
+ * @var array<string, string> $regions
+ * @var bool $registrationEnabled
+ * @var int|null $registrationGroup
+ */
+?>
 
 <div class="alert alert-info">
-    <?php echo t('<a href="%s" target="_blank">Click here</a> to obtain your access keys.', 'http://steamcommunity.com/dev/apikey'); ?>
+    <?= t('Create a client in the <a href="%s" target="_blank" rel="noopener">Blizzard Developer Portal</a>, copy its client ID and secret, and add this redirect URL:', 'https://develop.battle.net/access/clients') ?>
+    <code class="d-block mt-1 user-select-all"><?= h($callbackUrl) ?></code>
 </div>
 
-<script type="text/javascript">
+<div class="form-group">
+    <?= $form->label('client_id', t('Client ID')) ?>
+    <?= $form->text('client_id', $clientId, ['autocomplete' => 'off', 'class' => 'font-monospace', 'spellcheck' => 'false']) ?>
+</div>
+<div class="form-group">
+    <?= $form->label('client_secret', t('Client Secret')) ?>
+    <?= $form->password('client_secret', $clientSecret, ['autocomplete' => 'off', 'class' => 'font-monospace', 'spellcheck' => 'false']) ?>
+</div>
+<div class="form-group">
+    <?= $form->label('region', t('Region')) ?>
+    <?= $form->select('region', $regions, $region) ?>
+    <div class="form-text"><?= t('Accounts from China use a separate login server.') ?></div>
+</div>
 
-    (function RegistrationGroup() {
+<fieldset>
+    <legend><?= t('Registration') ?></legend>
+    <div class="form-group">
+        <div class="form-check">
+            <?= $form->checkbox('registration_enabled', '1', $registrationEnabled) ?>
+            <label class="form-check-label" for="registration_enabled"><?= t('Allow automatic registration') ?></label>
+        </div>
+        <div class="form-text"><?= t('Battle.net doesn\'t share email addresses: new users have to enter and confirm one.') ?></div>
+    </div>
+    <div class="form-group registration-group">
+        <?= $form->label('registration_group', t('Group to enter on registration')) ?>
+        <?= $groupSelector->selectGroup('registration_group', $registrationGroup, tc('Group', 'None')) ?>
+    </div>
+</fieldset>
 
-        var input = $('input[name="registration_enabled"]'),
-            group_div = $('div.registration-group');
-
-        input.change(function () {
-            input.get(0).checked && group_div.show() || group_div.hide();
-        }).change();
-
-    }());
-
-    var button = $('#showsecret');
-    button.click(function() {
-        var apisecret = $('#apisecret');
-        if(apisecret.attr('type') == 'password') {
-            apisecret.attr('type', 'text');
-            button.html('<?php echo addslashes(t('Hide secret key'))?>');
-        } else {
-            apisecret.attr('type', 'password');
-            button.html('<?php echo addslashes(t('Show secret key'))?>');
-        }
-    });
+<script>
+$(function() {
+    $('input[name="registration_enabled"]')
+        .on('change', function () {
+            $('div.registration-group').toggle($(this).is(':checked'));
+        })
+        .trigger('change');
+});
 </script>
