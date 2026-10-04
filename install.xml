@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<concrete5-cif version="1.0">
+    <blocktypes>
+        <blocktype handle="wow_characters" package="battlenet_connect"/>
+    </blocktypes>
+    <tasks>
+        <task handle="sync_battlenet_data" package="battlenet_connect"/>
+    </tasks>
+</concrete5-cif>

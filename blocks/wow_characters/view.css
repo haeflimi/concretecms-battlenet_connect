@@ -1,0 +1,192 @@
+/*
+ * Plain Bootstrap 5 look like the Steam leaderboard: uses the theme's Bootstrap variables, with defaults for themes
+ * that don't define them. The class color of a character is only used as an accent (--wow-class).
+ */
+.wow-characters {
+    --wc-ink: var(--bs-body-color, #212529);
+    --wc-ink-muted: var(--bs-secondary-color, #6c757d);
+    --wc-surface: var(--bs-body-bg, #fff);
+    --wc-surface-hover: var(--bs-tertiary-bg, #f8f9fa);
+    --wc-border: var(--bs-border-color, #dee2e6);
+    --wc-hue: var(--bs-primary, #0d6efd);
+    --wc-mono: var(--bs-font-monospace, monospace);
+    --wc-radius: var(--bs-border-radius, .375rem);
+    color: var(--wc-ink);
+    background: var(--wc-surface);
+    border: 1px solid var(--wc-border);
+    border-radius: var(--wc-radius);
+    margin-bottom: 1.5rem;
+}
+.wow-characters a {
+    color: inherit;
+    text-decoration: none;
+}
+.wow-characters a:hover,
+.wow-characters a:focus-visible {
+    text-decoration: underline;
+}
+.wow-characters-head {
+    padding: 1rem 1rem .5rem;
+}
+.wow-characters-title {
+    margin: 0;
+    font-size: 1.25rem;
+}
+.wow-characters-subtitle,
+.wow-characters-empty {
+    margin: .25rem 0 0;
+    color: var(--wc-ink-muted);
+    font-size: .875rem;
+}
+.wow-characters-empty {
+    padding: 0 1rem 1rem;
+}
+
+/* Ranking */
+.wow-characters-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.wow-characters-row {
+    display: grid;
+    grid-template-columns: 2rem 40px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: .375rem .75rem;
+    padding: .5rem 1rem;
+    border-top: 1px solid var(--wc-border);
+}
+.wow-characters-row:hover {
+    background: var(--wc-surface-hover);
+}
+.wow-characters-has-bar .wow-characters-rank,
+.wow-characters-has-bar .wow-characters-image {
+    grid-row: span 2;
+}
+.wow-characters-rank {
+    font-family: var(--wc-mono);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    color: var(--wc-ink-muted);
+}
+.wow-characters-top .wow-characters-rank {
+    color: var(--wc-ink);
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+.wow-characters-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 0 2px var(--wow-class);
+}
+.wow-characters-image-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--wc-border);
+    color: var(--wc-ink-muted);
+    font-weight: 700;
+}
+.wow-characters-main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+.wow-characters-name {
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.wow-characters-meta {
+    color: var(--wc-ink-muted);
+    font-size: .8125rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.wow-characters-value {
+    font-family: var(--wc-mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    text-align: right;
+}
+.wow-characters-bar {
+    grid-column: 3 / -1;
+    display: block;
+    height: 6px;
+    background: var(--wc-border);
+    border-radius: 3px;
+    overflow: hidden;
+}
+.wow-characters-bar > span {
+    display: block;
+    height: 100%;
+    background: var(--wc-hue);
+    border-radius: 0 3px 3px 0;
+}
+
+/* Characters of a member */
+.wow-characters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: 1rem;
+    padding: .5rem 1rem 1rem;
+}
+.wow-character-card {
+    border: 1px solid var(--wc-border);
+    border-top: 3px solid var(--wow-class);
+    border-radius: var(--wc-radius);
+    overflow: hidden;
+    background: var(--wc-surface);
+}
+.wow-character-card-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 23 / 12;
+    object-fit: cover;
+    background: var(--wc-surface-hover);
+}
+.wow-character-card-body {
+    padding: .75rem;
+}
+.wow-character-card-name {
+    margin: 0 0 .25rem;
+    font-size: 1.125rem;
+}
+.wow-character-card-meta {
+    margin: 0;
+    color: var(--wc-ink-muted);
+    font-size: .8125rem;
+}
+.wow-character-card-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem 1rem;
+    margin: .75rem 0 0;
+}
+.wow-character-card-stats dt {
+    color: var(--wc-ink-muted);
+    font-size: .75rem;
+    font-weight: 400;
+}
+.wow-character-card-stats dd {
+    margin: 0;
+    font-family: var(--wc-mono);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+}
+
+@media (max-width: 480px) {
+    .wow-characters-row {
+        grid-template-columns: 1.5rem 32px minmax(0, 1fr) auto;
+        gap: .375rem .5rem;
+        padding: .5rem .75rem;
+    }
+    .wow-characters-image {
+        width: 32px;
+        height: 32px;
+    }
+}
