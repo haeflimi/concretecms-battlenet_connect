@@ -51,7 +51,13 @@ class BattlenetServiceFactory
         );
         $host = $this->battlenetConfig->getRegion() === BattlenetConfig::REGION_CN ? BattlenetService::HOST_CN : BattlenetService::HOST_GLOBAL;
 
-        return new BattlenetService($credentials, $this->httpClient, new SymfonySession($this->session, false), [BattlenetService::SCOPE_OPENID], new Uri($host));
+        $scopes = [BattlenetService::SCOPE_OPENID];
+        if ($this->battlenetConfig->isWowEnabled()) {
+            // To import the WoW characters of the account
+            $scopes[] = BattlenetService::SCOPE_WOW_PROFILE;
+        }
+
+        return new BattlenetService($credentials, $this->httpClient, new SymfonySession($this->session, false), $scopes, new Uri($host));
     }
 
     /**

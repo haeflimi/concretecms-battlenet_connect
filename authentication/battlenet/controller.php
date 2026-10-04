@@ -7,6 +7,8 @@ use BattlenetConnect\BattlenetConfig;
 use BattlenetConnect\Entity\BattlenetProfile;
 use BattlenetConnect\OAuth\BattlenetService;
 use BattlenetConnect\OAuth\BattlenetServiceFactory;
+use BattlenetConnect\Wow\WowCharacterSync;
+use BattlenetConnect\Wow\WowRoster;
 use Concrete\Core\Attribute\Key\UserKey;
 use Concrete\Core\Authentication\Type\OAuth\OAuth2\GenericOauth2TypeController;
 use Concrete\Core\Form\Service\Widget\GroupSelector;
@@ -26,7 +28,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * Battle.net login. The core OAuth2 controller provides the routes (/ccm/system/authentication/oauth2/battlenet/...),
  * the user binding storage (OauthUserMap, the binding is the Battle.net account ID) and the attach/detach integration
  * in the user profile. The flows are overridden to return responses and to confirm the email address on registration:
- * Battle.net doesn't share it.
+ * Battle.net doesn't share it. The WoW characters of the account are imported whenever the user logs in or attaches
+ * their account: only the user's token, which is valid for 24 hours, can list them.
  */
 class Controller extends GenericOauth2TypeController
 {
@@ -114,14 +117,17 @@ class Controller extends GenericOauth2TypeController
                 return $this->errorResponse(t('Failed to complete authentication.'));
             }
             $this->app->make('session')->migrate();
-            $this->onConnected($battlenetUser, (int) $userID);
+            $this->onConnected($battlenetUser, (int) $userID, $this->getAccessToken());
 
             return $this->completeAuthentication($user);
         }
 
         if ($this->supportsRegistration()) {
             // Battle.net doesn't share the email address, so we have to ask the visitor for it before creating the account.
-            $this->app->make('session')->set(self::SESSION_PENDING, $battlenetUser);
+            $this->app->make('session')->set(self::SESSION_PENDING, [
+                'battlenetUser' => $battlenetUser,
+                'accessToken' => $this->getAccessToken(),
+            ]);
             $token = $this->app->make('token')->generate('battlenet_register');
 
             return $this->redirectResponse('/login/callback/battlenet/handle_register/' . $token);
@@ -133,7 +139,8 @@ class Controller extends GenericOauth2TypeController
     public function handle_register($token = null)
     {
         $session = $this->app->make('session');
-        $battlenetUser = $session->get(self::SESSION_PENDING);
+        $pending = $session->get(self::SESSION_PENDING);
+        $battlenetUser = $pending['battlenetUser'] ?? null;
         $tokenValidator = $this->app->make('token');
         if (!$this->supportsRegistration() || !is_array($battlenetUser) || empty($battlenetUser['id'])
             || (!$tokenValidator->validate('battlenet_register', $token) && !$tokenValidator->validate('battlenet_register'))
@@ -172,7 +179,7 @@ class Controller extends GenericOauth2TypeController
             return;
         }
         $session->remove(self::SESSION_PENDING);
-        $this->onConnected($battlenetUser, (int) $userInfo->getUserID());
+        $this->onConnected($battlenetUser, (int) $userInfo->getUserID(), $pending['accessToken'] ?? null);
 
         $this->set('show_email', false);
         $this->set('message', t('Your account has been created. We sent an email to %s: click on the link it contains to confirm your email address, then you can log in with Battle.net.', $email));
@@ -212,7 +219,7 @@ class Controller extends GenericOauth2TypeController
         } catch (Throwable $e) {
             return $this->errorResponse(t('Unable to attach user.'));
         }
-        $this->onConnected($battlenetUser, $userID);
+        $this->onConnected($battlenetUser, $userID, $this->getAccessToken());
 
         return $this->successResponse(t('Successfully attached.'));
     }
@@ -229,6 +236,7 @@ class Controller extends GenericOauth2TypeController
             try {
                 $this->getBindingService()->clearBinding($user->getUserID(), $binding, $this->getHandle(), true);
                 $this->app->make(BattlenetAccounts::class)->deleteProfile($binding);
+                $this->app->make(WowCharacterSync::class)->deleteAccountCharacters($binding);
             } catch (Throwable $e) {
                 return $this->errorResponse(t('Unable to detach account.'));
             }
@@ -244,8 +252,14 @@ class Controller extends GenericOauth2TypeController
         $config->save('auth.battlenet.client_secret', trim((string) ($args['client_secret'] ?? '')));
         $config->save('auth.battlenet.registration.enabled', !empty($args['registration_enabled']));
         $config->save('auth.battlenet.registration.group', (int) ($args['registration_group'] ?? 0));
+        $battlenetConfig = $this->app->make(BattlenetConfig::class);
         $region = (string) ($args['region'] ?? '');
-        $this->app->make(BattlenetConfig::class)->save('region', isset(BattlenetConfig::getRegionNames()[$region]) ? $region : BattlenetConfig::REGION_GLOBAL);
+        $battlenetConfig->save('region', isset(BattlenetConfig::getRegionNames()[$region]) ? $region : BattlenetConfig::REGION_GLOBAL);
+        $battlenetConfig->save('wow_versions', array_values(array_intersect(array_keys($battlenetConfig->getWowVersionNames()), (array) ($args['wow_versions'] ?? []))));
+        $apiRegion = (string) ($args['wow_api_region'] ?? '');
+        $battlenetConfig->save('wow_api_region', in_array($apiRegion, BattlenetConfig::WOW_API_REGIONS, true) ? $apiRegion : 'eu');
+        $locale = (string) ($args['wow_locale'] ?? '');
+        $battlenetConfig->save('wow_locale', in_array($locale, BattlenetConfig::WOW_LOCALES, true) ? $locale : 'en_US');
     }
 
     public function edit()
@@ -256,8 +270,15 @@ class Controller extends GenericOauth2TypeController
         $this->set('callbackUrl', $this->app->make(BattlenetServiceFactory::class)->getCallbackUrl());
         $this->set('clientId', (string) $config->get('auth.battlenet.client_id', ''));
         $this->set('clientSecret', (string) $config->get('auth.battlenet.client_secret', ''));
-        $this->set('region', $this->app->make(BattlenetConfig::class)->getRegion());
+        $battlenetConfig = $this->app->make(BattlenetConfig::class);
+        $this->set('region', $battlenetConfig->getRegion());
         $this->set('regions', BattlenetConfig::getRegionNames());
+        $this->set('wowVersionNames', $battlenetConfig->getWowVersionNames());
+        $this->set('wowVersions', $battlenetConfig->getWowVersions());
+        $this->set('wowApiRegion', $battlenetConfig->getWowApiRegion());
+        $this->set('wowApiRegions', array_combine(BattlenetConfig::WOW_API_REGIONS, array_map('strtoupper', BattlenetConfig::WOW_API_REGIONS)));
+        $this->set('wowLocale', $battlenetConfig->getWowLocale());
+        $this->set('wowLocales', array_combine(BattlenetConfig::WOW_LOCALES, BattlenetConfig::WOW_LOCALES));
         $this->set('registrationEnabled', (bool) $config->get('auth.battlenet.registration.enabled'));
         $registrationGroupID = (int) $config->get('auth.battlenet.registration.group');
         $registrationGroup = $registrationGroupID === 0 ? null : $this->app->make(GroupRepository::class)->getGroupById($registrationGroupID);
@@ -270,6 +291,21 @@ class Controller extends GenericOauth2TypeController
     public function getProfile(User $user): ?BattlenetProfile
     {
         return $this->app->make(BattlenetAccounts::class)->getProfile($user);
+    }
+
+    /**
+     * The WoW characters of a user, highest level first.
+     *
+     * @return \BattlenetConnect\Entity\WowCharacter[]
+     */
+    public function getWowCharacters(User $user): array
+    {
+        return array_column($this->app->make(WowRoster::class)->getCharacters(['uID' => (int) $user->getUserID(), 'sort' => WowRoster::SORT_LEVEL]), 'character');
+    }
+
+    public function getBattlenetConfig(): BattlenetConfig
+    {
+        return $this->app->make(BattlenetConfig::class);
     }
 
     /**
@@ -301,15 +337,29 @@ class Controller extends GenericOauth2TypeController
         return $battlenetUser;
     }
 
+    protected function getAccessToken(): ?string
+    {
+        return $this->getToken() === null ? null : $this->getToken()->getAccessToken();
+    }
+
     /**
-     * Store the Battle.net profile (the BattleTag can change).
+     * Store the Battle.net profile (the BattleTag can change) and import the WoW characters of the account.
+     * Errors are logged: the login itself worked, don't fail it.
+     *
+     * @param string|null $accessToken OAuth2 access token of the user, needed to list their WoW characters
      */
-    protected function onConnected(array $battlenetUser, int $userID): void
+    protected function onConnected(array $battlenetUser, int $userID, ?string $accessToken): void
     {
         try {
             $this->app->make(BattlenetAccounts::class)->saveUser($battlenetUser, $userID);
+            if ($accessToken !== null && $this->app->make(BattlenetConfig::class)->isWowEnabled()) {
+                foreach ($this->app->make(WowCharacterSync::class)->importAccountCharacters($battlenetUser['id'], $userID, $accessToken) as $version => $result) {
+                    if (is_string($result)) {
+                        $this->logger->warning(t('Unable to import the WoW characters (%s) of the Battle.net account %s: %s', $version, $battlenetUser['id'], $result));
+                    }
+                }
+            }
         } catch (Throwable $e) {
-            // The login itself worked, don't fail it
             $this->logger->warning(t('Unable to store the Battle.net profile %s: %s', $battlenetUser['id'], $e->getMessage()), ['exception' => $e]);
         }
     }

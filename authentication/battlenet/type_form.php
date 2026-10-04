@@ -10,6 +10,12 @@ defined('C5_EXECUTE') or die('Access Denied.');
  * @var string $clientSecret
  * @var string $region
  * @var array<string, string> $regions
+ * @var array<string, string> $wowVersionNames
+ * @var string[] $wowVersions
+ * @var string $wowApiRegion
+ * @var array<string, string> $wowApiRegions
+ * @var string $wowLocale
+ * @var array<string, string> $wowLocales
  * @var bool $registrationEnabled
  * @var int|null $registrationGroup
  */
@@ -33,6 +39,30 @@ defined('C5_EXECUTE') or die('Access Denied.');
     <?= $form->select('region', $regions, $region) ?>
     <div class="form-text"><?= t('Accounts from China use a separate login server.') ?></div>
 </div>
+
+<fieldset>
+    <legend><?= t('World of Warcraft') ?></legend>
+    <div class="form-group">
+        <?= $form->label('', t('Import the characters of')) ?>
+        <?php foreach ($wowVersionNames as $version => $name) { ?>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="wow_versions[]" id="wow_version_<?= h($version) ?>" value="<?= h($version) ?>"<?= in_array($version, $wowVersions, true) ? ' checked' : '' ?>>
+                <label class="form-check-label" for="wow_version_<?= h($version) ?>"><?= h($name) ?></label>
+            </div>
+        <?php } ?>
+        <div class="form-text"><?= t('The characters are imported when users log in with Battle.net or attach their account (they are asked for access to their WoW profile), and updated by the "Sync Battle.net Data" task. Nothing is imported if no version is selected.') ?></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 form-group">
+            <?= $form->label('wow_api_region', t('Game region')) ?>
+            <?= $form->select('wow_api_region', $wowApiRegions, $wowApiRegion) ?>
+        </div>
+        <div class="col-sm-6 form-group">
+            <?= $form->label('wow_locale', t('Language of names')) ?>
+            <?= $form->select('wow_locale', $wowLocales, $wowLocale) ?>
+        </div>
+    </div>
+</fieldset>
 
 <fieldset>
     <legend><?= t('Registration') ?></legend>

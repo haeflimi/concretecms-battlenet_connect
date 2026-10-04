@@ -3,11 +3,14 @@
 namespace Concrete\Package\BattlenetConnect;
 
 use Concrete\Core\Authentication\AuthenticationType;
+use Concrete\Core\Backup\ContentImporter;
+use Concrete\Core\Command\Task\Manager as TaskManager;
 use Concrete\Core\Database\EntityManager\Provider\ProviderAggregateInterface;
 use Concrete\Core\Database\EntityManager\Provider\StandardPackageProvider;
 use Concrete\Core\Logging\Channels;
 use Concrete\Core\Package\Package;
 use BattlenetConnect\BattlenetAccounts;
+use BattlenetConnect\Command\Task\SyncBattlenetDataController;
 use Throwable;
 
 defined('C5_EXECUTE') or die('Access Denied.');
@@ -16,7 +19,7 @@ class Controller extends Package implements ProviderAggregateInterface
 {
     protected $pkgHandle = 'battlenet_connect';
     protected $appVersionRequired = '9.0.0';
-    protected $pkgVersion = '1.0.0';
+    protected $pkgVersion = '1.1.0';
     protected $pkgAutoloaderRegistries = [
         'src' => 'BattlenetConnect',
     ];
@@ -28,7 +31,7 @@ class Controller extends Package implements ProviderAggregateInterface
 
     public function getPackageDescription()
     {
-        return t('Adds an Authenticator for Blizzard\'s Battle.net gaming platform.');
+        return t('Adds an Authenticator for Blizzard\'s Battle.net gaming platform and shows the World of Warcraft characters of the users.');
     }
 
     public function getEntityManagerProvider()
@@ -38,10 +41,18 @@ class Controller extends Package implements ProviderAggregateInterface
         ]);
     }
 
+    public function on_start()
+    {
+        $this->app->make(TaskManager::class)->extend('sync_battlenet_data', function () {
+            return $this->app->make(SyncBattlenetDataController::class);
+        });
+    }
+
     public function install()
     {
         $pkg = parent::install();
         $this->installAuthenticationType($pkg);
+        $this->installContent();
 
         return $pkg;
     }
@@ -50,6 +61,7 @@ class Controller extends Package implements ProviderAggregateInterface
     {
         parent::upgrade();
         $this->installAuthenticationType($this->getPackageEntity());
+        $this->installContent();
         $this->removeInvalidBindings();
     }
 
@@ -60,6 +72,12 @@ class Controller extends Package implements ProviderAggregateInterface
             $type->delete();
         }
         parent::uninstall();
+    }
+
+    protected function installContent(): void
+    {
+        $importer = new ContentImporter();
+        $importer->importContentFile($this->getPackagePath() . '/install.xml');
     }
 
     protected function installAuthenticationType($pkg): void
