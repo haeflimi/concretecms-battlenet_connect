@@ -1,0 +1,510 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the battlenet_connect package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: battlenet_connect\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-09 22:02+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: battlenet_connect/controller.php:29
+msgid "Battle.net Connect"
+msgstr "Battle.net Connect"
+
+#: battlenet_connect/controller.php:34
+msgid "Adds an Authenticator for Blizzard's Battle.net gaming platform and shows the World of Warcraft characters of the users."
+msgstr "Fügt eine Anmeldung über Blizzards Gaming-Plattform Battle.net hinzu und zeigt die World-of-Warcraft-Charaktere der Benutzer an."
+
+#: battlenet_connect/controller.php:104
+#, php-format
+msgid "Battle.net Connect removed %s invalid Battle.net account links of an old version. These users have to attach their Battle.net account again."
+msgstr "Battle.net Connect hat %s ungültige Battle.net-Kontoverknüpfungen einer alten Version entfernt. Diese Benutzer müssen ihr Battle.net-Konto erneut verknüpfen."
+
+#: battlenet_connect/src/BattlenetConfig.php:46
+msgid "Global (all regions except China)"
+msgstr "Global (alle Regionen außer China)"
+
+#: battlenet_connect/src/BattlenetConfig.php:47
+msgid "China"
+msgstr "China"
+
+#: battlenet_connect/src/BattlenetConfig.php:64
+msgid "Retail"
+msgstr "Retail"
+
+#: battlenet_connect/src/BattlenetConfig.php:65
+msgid "Classic (progression realms)"
+msgstr "Classic (Progression-Realms)"
+
+#: battlenet_connect/src/BattlenetConfig.php:66
+msgid "Classic Era"
+msgstr "Classic Era"
+
+#: battlenet_connect/src/BattlenetConfig.php:67
+msgid "Classic Anniversary"
+msgstr "Classic Anniversary"
+
+#: battlenet_connect/authentication/battlenet/form.php:27
+#, php-format
+msgid "Register an account for \"%s\""
+msgstr "Konto für „%s“ registrieren"
+
+#: battlenet_connect/authentication/battlenet/form.php:29
+msgid "Email Address"
+msgstr "E-Mail-Adresse"
+
+#: battlenet_connect/authentication/battlenet/form.php:30
+msgid "Register"
+msgstr "Registrieren"
+
+#: battlenet_connect/authentication/battlenet/form.php:41
+#, php-format
+msgid "Log in with %s"
+msgstr "Mit %s anmelden"
+
+#: battlenet_connect/authentication/battlenet/hook.php:4
+#: battlenet_connect/authentication/battlenet/hook.php:10
+#, php-format
+msgid "Attach a %s account"
+msgstr "%s-Konto verknüpfen"
+
+#: battlenet_connect/authentication/battlenet/controller.php:81
+#: battlenet_connect/authentication/battlenet/controller.php:93
+msgid "You are already logged in."
+msgstr "Du bist bereits angemeldet."
+
+#: battlenet_connect/authentication/battlenet/controller.php:98
+#: battlenet_connect/authentication/battlenet/controller.php:208
+msgid "Battle.net authentication failed. Please try again."
+msgstr "Die Anmeldung mit Battle.net ist fehlgeschlagen. Bitte versuche es erneut."
+
+#: battlenet_connect/authentication/battlenet/controller.php:105
+#: battlenet_connect/authentication/battlenet/controller.php:117
+msgid "Failed to complete authentication."
+msgstr "Die Anmeldung konnte nicht abgeschlossen werden."
+
+#: battlenet_connect/authentication/battlenet/controller.php:112
+msgid "This account has not yet been validated. Please check the email associated with this account and follow the link it contains."
+msgstr "Dieses Konto wurde noch nicht bestätigt. Bitte prüfe die E-Mails an die Adresse dieses Kontos und folge dem enthaltenen Link."
+
+#: battlenet_connect/authentication/battlenet/controller.php:136
+msgid "No local user account is associated with this Battle.net account. Please log in with a local account and connect your Battle.net account from your user profile."
+msgstr "Mit diesem Battle.net-Konto ist kein lokales Benutzerkonto verknüpft. Bitte melde dich mit einem lokalen Konto an und verknüpfe dein Battle.net-Konto in deinem Profil."
+
+#: battlenet_connect/authentication/battlenet/controller.php:148
+msgid "Your registration session has expired. Please sign in with Battle.net again."
+msgstr "Deine Registrierungssitzung ist abgelaufen. Bitte melde dich erneut mit Battle.net an."
+
+#: battlenet_connect/authentication/battlenet/controller.php:163
+msgid "Please enter a valid email address."
+msgstr "Bitte gib eine gültige E-Mail-Adresse ein."
+
+#: battlenet_connect/authentication/battlenet/controller.php:168
+msgid "A user account already exists for this email, please log in and attach your Battle.net account from your account page."
+msgstr "Für diese E-Mail-Adresse gibt es bereits ein Benutzerkonto. Bitte melde dich an und verknüpfe dein Battle.net-Konto auf deiner Kontoseite."
+
+#: battlenet_connect/authentication/battlenet/controller.php:177
+msgid "Unable to create new account."
+msgstr "Das neue Konto konnte nicht erstellt werden."
+
+#: battlenet_connect/authentication/battlenet/controller.php:185
+#, php-format
+msgid "Your account has been created. We sent an email to %s: click on the link it contains to confirm your email address, then you can log in with Battle.net."
+msgstr "Dein Konto wurde erstellt. Wir haben eine E-Mail an %s geschickt: Klicke auf den enthaltenen Link, um deine E-Mail-Adresse zu bestätigen. Danach kannst du dich mit Battle.net anmelden."
+
+#: battlenet_connect/authentication/battlenet/controller.php:191
+msgid "A user must be logged in to attach a Battle.net account."
+msgstr "Um ein Battle.net-Konto zu verknüpfen, musst du angemeldet sein."
+
+#: battlenet_connect/authentication/battlenet/controller.php:214
+msgid "This Battle.net account is already connected to another user account."
+msgstr "Dieses Battle.net-Konto ist bereits mit einem anderen Benutzerkonto verknüpft."
+
+#: battlenet_connect/authentication/battlenet/controller.php:220
+msgid "Unable to attach user."
+msgstr "Das Konto konnte nicht verknüpft werden."
+
+#: battlenet_connect/authentication/battlenet/controller.php:224
+msgid "Successfully attached."
+msgstr "Erfolgreich verknüpft."
+
+#: battlenet_connect/authentication/battlenet/controller.php:241
+msgid "Unable to detach account."
+msgstr "Die Verknüpfung konnte nicht gelöst werden."
+
+#: battlenet_connect/authentication/battlenet/controller.php:245
+msgid "Successfully detached."
+msgstr "Verknüpfung erfolgreich gelöst."
+
+#: battlenet_connect/authentication/battlenet/controller.php:328
+#, php-format
+msgid "Battle.net authentication failed: %s"
+msgstr "Anmeldung mit Battle.net fehlgeschlagen: %s"
+
+#: battlenet_connect/authentication/battlenet/controller.php:358
+#, php-format
+msgid "Unable to import the WoW characters (%s) of the Battle.net account %s: %s"
+msgstr "Die WoW-Charaktere (%s) des Battle.net-Kontos %s konnten nicht importiert werden: %s"
+
+#: battlenet_connect/authentication/battlenet/controller.php:363
+#, php-format
+msgid "Unable to store the Battle.net profile %s: %s"
+msgstr "Das Battle.net-Profil %s konnte nicht gespeichert werden: %s"
+
+#: battlenet_connect/authentication/battlenet/hooked.php:14
+#: battlenet_connect/authentication/battlenet/hooked.php:20
+#, php-format
+msgid "Detach your %s account"
+msgstr "Verknüpfung mit deinem %s-Konto lösen"
+
+#: battlenet_connect/authentication/battlenet/hooked.php:24
+#, php-format
+msgid "Connected Battle.net account: %s"
+msgstr "Verknüpftes Battle.net-Konto: %s"
+
+#: battlenet_connect/authentication/battlenet/hooked.php:31
+msgid "World of Warcraft characters"
+msgstr "World-of-Warcraft-Charaktere"
+
+#: battlenet_connect/authentication/battlenet/hooked.php:34
+msgid "No characters found."
+msgstr "Keine Charaktere gefunden."
+
+#: battlenet_connect/authentication/battlenet/hooked.php:45
+#: battlenet_connect/blocks/wow_characters/controller.php:245
+#: battlenet_connect/blocks/wow_characters/view.php:50
+#: battlenet_connect/blocks/wow_characters/view.php:78
+#, php-format
+msgid "Level %s"
+msgstr "Level %s"
+
+#: battlenet_connect/authentication/battlenet/hooked.php:55
+msgid "Refresh the list of characters"
+msgstr "Charakterliste aktualisieren"
+
+#: battlenet_connect/authentication/battlenet/type_form.php:25
+#, php-format
+msgid "Create a client in the <a href=\"%s\" target=\"_blank\" rel=\"noopener\">Blizzard Developer Portal</a>, copy its client ID and secret, and add this redirect URL:"
+msgstr "Erstelle einen Client im <a href=\"%s\" target=\"_blank\" rel=\"noopener\">Blizzard Developer Portal</a>, kopiere dessen Client ID und Client Secret und füge diese Redirect-URL hinzu:"
+
+#: battlenet_connect/authentication/battlenet/type_form.php:30
+msgid "Client ID"
+msgstr "Client ID"
+
+#: battlenet_connect/authentication/battlenet/type_form.php:34
+msgid "Client Secret"
+msgstr "Client Secret"
+
+#: battlenet_connect/authentication/battlenet/type_form.php:38
+msgid "Region"
+msgstr "Region"
+
+#: battlenet_connect/authentication/battlenet/type_form.php:40
+msgid "Accounts from China use a separate login server."
+msgstr "Konten aus China verwenden einen eigenen Anmeldeserver."
+
+#: battlenet_connect/authentication/battlenet/type_form.php:44
+msgid "World of Warcraft"
+msgstr "World of Warcraft"
+
+#: battlenet_connect/authentication/battlenet/type_form.php:46
+msgid "Import the characters of"
+msgstr "Charaktere importieren aus"
+
+#: battlenet_connect/authentication/battlenet/type_form.php:53
+msgid "The characters are imported when users log in with Battle.net or attach their account (they are asked for access to their WoW profile), and updated by the \"Sync Battle.net Data\" task. Nothing is imported if no version is selected."
+msgstr "Die Charaktere werden importiert, wenn sich Benutzer mit Battle.net anmelden oder ihr Konto verknüpfen (sie werden um Zugriff auf ihr WoW-Profil gebeten), und von der Aufgabe „Battle.net-Daten synchronisieren“ aktualisiert. Ist keine Version ausgewählt, wird nichts importiert."
+
+#: battlenet_connect/authentication/battlenet/type_form.php:57
+msgid "Game region"
+msgstr "Spielregion"
+
+#: battlenet_connect/authentication/battlenet/type_form.php:61
+msgid "Language of names"
+msgstr "Sprache der Namen"
+
+#: battlenet_connect/authentication/battlenet/type_form.php:68
+msgid "Registration"
+msgstr "Registrierung"
+
+#: battlenet_connect/authentication/battlenet/type_form.php:72
+msgid "Allow automatic registration"
+msgstr "Automatische Registrierung erlauben"
+
+#: battlenet_connect/authentication/battlenet/type_form.php:74
+msgid "Battle.net doesn't share email addresses: new users have to enter and confirm one."
+msgstr "Battle.net gibt keine E-Mail-Adressen weiter: Neue Benutzer müssen eine eingeben und bestätigen."
+
+#: battlenet_connect/authentication/battlenet/type_form.php:77
+msgid "Group to enter on registration"
+msgstr "Benutzergruppe bei der Registrierung"
+
+#: battlenet_connect/authentication/battlenet/type_form.php:78
+msgctxt "Group"
+msgid "None"
+msgstr "Keine"
+
+#: battlenet_connect/src/Api/BattlenetApi.php:138
+#: battlenet_connect/src/Api/BattlenetApi.php:188
+#, php-format
+msgid "Unable to reach the Battle.net API: %s"
+msgstr "Die Battle.net-API ist nicht erreichbar: %s"
+
+#: battlenet_connect/src/Api/BattlenetApi.php:158
+#, php-format
+msgid "Battle.net API error %s on %s: %s"
+msgstr "Battle.net-API-Fehler %s bei %s: %s"
+
+#: battlenet_connect/src/Api/BattlenetApi.php:178
+msgid "The Battle.net client ID and secret are not configured."
+msgstr "Client ID und Client Secret für Battle.net sind nicht konfiguriert."
+
+#: battlenet_connect/src/Api/BattlenetApi.php:194
+#, php-format
+msgid "Unable to get a Battle.net API token: %s"
+msgstr "Es konnte kein Battle.net-API-Token abgerufen werden: %s"
+
+#: battlenet_connect/src/Wow/WowCharacterSync.php:137
+msgid "Not found: not played for a long time, renamed or transferred. The owner has to log in with Battle.net again."
+msgstr "Nicht gefunden: lange nicht gespielt, umbenannt oder transferiert. Der Besitzer muss sich erneut mit Battle.net anmelden."
+
+#: battlenet_connect/src/Wow/WowRoster.php:47
+#: battlenet_connect/blocks/wow_characters/view.php:57
+msgid "Item level"
+msgstr "Itemlevel"
+
+#: battlenet_connect/src/Wow/WowRoster.php:48
+msgid "Mythic+ rating (retail)"
+msgstr "Mythisch+-Wertung (Retail)"
+
+#: battlenet_connect/src/Wow/WowRoster.php:49
+msgid "Achievement points"
+msgstr "Erfolgspunkte"
+
+#: battlenet_connect/src/Wow/WowRoster.php:50
+msgid "Level"
+msgstr "Level"
+
+#: battlenet_connect/src/Wow/WowRoster.php:51
+#: battlenet_connect/blocks/wow_characters/view.php:66
+msgid "Last played"
+msgstr "Zuletzt gespielt"
+
+#: battlenet_connect/src/Wow/WowRoster.php:52
+msgid "Most active (achievement points gained)"
+msgstr "Am aktivsten (gewonnene Erfolgspunkte)"
+
+#: battlenet_connect/src/Command/PruneBattlenetDataCommandHandler.php:29
+#, php-format
+msgid "Removed the data of %s unlinked Battle.net accounts and %s of their WoW characters."
+msgstr "Die Daten von %s nicht mehr verknüpften Battle.net-Konten und %s ihrer WoW-Charaktere wurden entfernt."
+
+#: battlenet_connect/src/Command/SyncWowCharactersCommandHandler.php:38
+#, php-format
+msgid "Character #%s: %s"
+msgstr "Charakter #%s: %s"
+
+#: battlenet_connect/src/Command/SyncWowCharactersCommandHandler.php:41
+#, php-format
+msgid "Updated %s WoW characters, %s not found."
+msgstr "%s WoW-Charaktere aktualisiert, %s nicht gefunden."
+
+#: battlenet_connect/blocks/wow_characters/controller.php:58
+#: battlenet_connect/blocks/wow_characters/controller.php:188
+msgid "WoW Characters"
+msgstr "WoW-Charaktere"
+
+#: battlenet_connect/blocks/wow_characters/controller.php:63
+msgid "World of Warcraft characters of a member, or a ranking of the characters of all members who linked their Battle.net account."
+msgstr "World-of-Warcraft-Charaktere eines Mitglieds oder eine Rangliste der Charaktere aller Mitglieder, die ihr Battle.net-Konto verknüpft haben."
+
+#: battlenet_connect/blocks/wow_characters/controller.php:106
+msgid "Please choose what to show."
+msgstr "Bitte wähle, was angezeigt werden soll."
+
+#: battlenet_connect/blocks/wow_characters/controller.php:111
+msgid "Please choose a member."
+msgstr "Bitte wähle ein Mitglied."
+
+#: battlenet_connect/blocks/wow_characters/controller.php:114
+msgid "Please choose the order."
+msgstr "Bitte wähle die Sortierung."
+
+#: battlenet_connect/blocks/wow_characters/controller.php:194
+#, php-format
+msgid "Last %s day"
+msgid_plural "Last %s days"
+msgstr[0] "Letzter %s Tag"
+msgstr[1] "Letzte %s Tage"
+
+#: battlenet_connect/blocks/wow_characters/controller.php:241
+#, php-format
+msgid "%s pts"
+msgstr "%s Pkt."
+
+#: battlenet_connect/blocks/wow_characters/controller.php:243
+#, php-format
+msgid "+%s pts"
+msgstr "+%s Pkt."
+
+#: battlenet_connect/blocks/wow_characters/controller.php:249
+#, php-format
+msgid "%s ilvl"
+msgstr "%s ilvl"
+
+#: battlenet_connect/blocks/wow_characters/controller.php:257
+msgid "Just now"
+msgstr "Gerade eben"
+
+#: battlenet_connect/blocks/wow_characters/controller.php:260
+#, php-format
+msgid "%s ago"
+msgstr "vor %s"
+
+#: battlenet_connect/blocks/wow_characters/controller.php:266
+msgid "All versions"
+msgstr "Alle Versionen"
+
+#: battlenet_connect/blocks/wow_characters/controller.php:273
+msgid "Ranking of the characters of all members"
+msgstr "Rangliste der Charaktere aller Mitglieder"
+
+#: battlenet_connect/blocks/wow_characters/controller.php:274
+msgid "Characters of one member"
+msgstr "Charaktere eines Mitglieds"
+
+#: battlenet_connect/blocks/wow_characters/controller.php:277
+msgid "The member whose profile is shown (or the current user)"
+msgstr "Das Mitglied, dessen Profil angezeigt wird (oder der aktuelle Benutzer)"
+
+#: battlenet_connect/blocks/wow_characters/controller.php:278
+msgid "The current user"
+msgstr "Der aktuelle Benutzer"
+
+#: battlenet_connect/blocks/wow_characters/controller.php:279
+msgid "A specific member"
+msgstr "Ein bestimmtes Mitglied"
+
+#: battlenet_connect/blocks/wow_characters/controller.php:283
+msgid "Last 7 days"
+msgstr "Letzte 7 Tage"
+
+#: battlenet_connect/blocks/wow_characters/controller.php:283
+msgid "Last 14 days"
+msgstr "Letzte 14 Tage"
+
+#: battlenet_connect/blocks/wow_characters/controller.php:283
+msgid "Last 30 days"
+msgstr "Letzte 30 Tage"
+
+#: battlenet_connect/blocks/wow_characters/controller.php:283
+msgid "Last 90 days"
+msgstr "Letzte 90 Tage"
+
+#: battlenet_connect/blocks/wow_characters/controller.php:283
+msgid "Last 12 months"
+msgstr "Letzte 12 Monate"
+
+#: battlenet_connect/blocks/wow_characters/form.php:29
+#, php-format
+msgid "No World of Warcraft version is selected in the <a href=\"%s\" target=\"_blank\">Battle.net authentication type</a>: there are no characters to show."
+msgstr "Im <a href=\"%s\" target=\"_blank\">Battle.net-Anmeldetyp</a> ist keine World-of-Warcraft-Version ausgewählt: Es gibt keine Charaktere zum Anzeigen."
+
+#: battlenet_connect/blocks/wow_characters/form.php:34
+msgid "Show"
+msgstr "Anzeigen"
+
+#: battlenet_connect/blocks/wow_characters/form.php:39
+msgid "Member"
+msgstr "Mitglied"
+
+#: battlenet_connect/blocks/wow_characters/form.php:41
+msgid "Place the block on the public member profile page (/members/profile) to show the characters of every member."
+msgstr "Platziere den Block auf der öffentlichen Mitgliederprofilseite (/members/profile), um die Charaktere jedes Mitglieds anzuzeigen."
+
+#: battlenet_connect/blocks/wow_characters/form.php:44
+msgid "Choose member"
+msgstr "Mitglied wählen"
+
+#: battlenet_connect/blocks/wow_characters/form.php:49
+msgid "Title"
+msgstr "Titel"
+
+#: battlenet_connect/blocks/wow_characters/form.php:50
+msgid "Default: the order"
+msgstr "Standard: die Sortierung"
+
+#: battlenet_connect/blocks/wow_characters/form.php:54
+msgid "WoW version"
+msgstr "WoW-Version"
+
+#: battlenet_connect/blocks/wow_characters/form.php:58
+msgid "Order by"
+msgstr "Sortieren nach"
+
+#: battlenet_connect/blocks/wow_characters/form.php:63
+msgid "Period"
+msgstr "Zeitraum"
+
+#: battlenet_connect/blocks/wow_characters/form.php:65
+msgid "Calculated from the data collected by the Sync Battle.net Data task, so it only covers the time since its first run. Classic Era has no achievements."
+msgstr "Berechnet aus den Daten, die die Aufgabe „Battle.net-Daten synchronisieren“ sammelt; deckt also nur die Zeit seit ihrer ersten Ausführung ab. Classic Era hat keine Erfolge."
+
+#: battlenet_connect/blocks/wow_characters/form.php:69
+msgid "Minimum level"
+msgstr "Mindestlevel"
+
+#: battlenet_connect/blocks/wow_characters/form.php:73
+msgid "Number of characters"
+msgstr "Anzahl Charaktere"
+
+#: battlenet_connect/blocks/wow_characters/form.php:80
+msgid "Only the best character of every member"
+msgstr "Nur den besten Charakter jedes Mitglieds"
+
+#: battlenet_connect/blocks/wow_characters/form.php:84
+msgid "Show the user name of the members"
+msgstr "Benutzernamen der Mitglieder anzeigen"
+
+#: battlenet_connect/blocks/wow_characters/view.php:36
+msgid "No characters yet."
+msgstr "Noch keine Charaktere."
+
+#: battlenet_connect/blocks/wow_characters/view.php:60
+msgid "Mythic+"
+msgstr "Mythisch+"
+
+#: battlenet_connect/blocks/wow_characters/view.php:63
+msgid "Achievements"
+msgstr "Erfolge"
+
+#: battlenet_connect/src/Command/Task/SyncBattlenetDataController.php:41
+#: battlenet_connect/src/Command/Task/SyncBattlenetDataController.php:63
+msgid "Sync Battle.net Data"
+msgstr "Battle.net-Daten synchronisieren"
+
+#: battlenet_connect/src/Command/Task/SyncBattlenetDataController.php:46
+msgid "Updates the World of Warcraft characters of the users who linked their Battle.net account: level, item level, spec, guild, achievement points, Mythic+ rating and images."
+msgstr "Aktualisiert die World-of-Warcraft-Charaktere der Benutzer, die ihr Battle.net-Konto verknüpft haben: Level, Itemlevel, Spezialisierung, Gilde, Erfolgspunkte, Mythisch+-Wertung und Bilder."
+
+#: battlenet_connect/src/Command/Task/SyncBattlenetDataController.php:57
+msgid "Please configure the client ID and secret in the Battle.net authentication type first."
+msgstr "Bitte konfiguriere zuerst Client ID und Client Secret im Battle.net-Anmeldetyp."
+
+#: battlenet_connect/src/Command/Task/SyncBattlenetDataController.php:60
+msgid "Please choose the World of Warcraft versions in the Battle.net authentication type first."
+msgstr "Bitte wähle zuerst die World-of-Warcraft-Versionen im Battle.net-Anmeldetyp."
+
+#: battlenet_connect/src/Command/Task/SyncBattlenetDataController.php:69
+msgid "Syncing Battle.net data..."
+msgstr "Battle.net-Daten werden synchronisiert …"
