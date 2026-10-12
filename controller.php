@@ -19,7 +19,7 @@ class Controller extends Package implements ProviderAggregateInterface
 {
     protected $pkgHandle = 'battlenet_connect';
     protected $appVersionRequired = '9.0.0';
-    protected $pkgVersion = '1.1.0';
+    protected $pkgVersion = '1.2.0';
     protected $pkgAutoloaderRegistries = [
         'src' => 'BattlenetConnect',
     ];
@@ -45,6 +45,11 @@ class Controller extends Package implements ProviderAggregateInterface
     {
         $this->app->make(TaskManager::class)->extend('sync_battlenet_data', function () {
             return $this->app->make(SyncBattlenetDataController::class);
+        });
+
+        // terminal command "battlenet" (cli_mode package): sends the visitor into the Battle.net login
+        $this->app->make('director')->addListener('on_cli_mode_register_commands', static function ($event) {
+            $event->getRegistry()->register(\BattlenetConnect\CliMode\BattlenetCommand::make());
         });
     }
 
