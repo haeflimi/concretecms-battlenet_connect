@@ -526,3 +526,15 @@ msgstr "Ab zu %s, dein Konto verbinden."
 
 msgid "Not logged in: takes you to the %1$s login, you come back signed in. Logged in: connects your %1$s account to your club account."
 msgstr "Nicht angemeldet: führt dich zur Anmeldung bei %1$s, du kommst angemeldet zurück. Angemeldet: verbindet dein %1$s-Konto mit deinem Vereinskonto."
+
+msgid "Battle.net"
+msgstr "Battle.net"
+
+msgid "Connected Battle.net accounts"
+msgstr "Verbundene Battle.net-Konten"
+
+msgid "WoW characters"
+msgstr "WoW-Charaktere"
+
+msgid "WoW characters at max level"
+msgstr "WoW-Charaktere auf Maximalstufe"
